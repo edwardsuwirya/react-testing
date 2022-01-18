@@ -1,9 +1,11 @@
 import './App.css';
-import Counter from "./features/counter/Counter";
+import LoginScreen from "./features/login/LoginScreen";
+import {LoginRepository} from "./features/login/LoginRepository";
+import {LoginBloc} from "./features/login/LoginBloc";
 
 function App() {
   return (
-    <Counter/>
+    <LoginScreen bloc={()=>LoginBloc(LoginRepository)}/>
   );
 }
 
