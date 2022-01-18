@@ -40,7 +40,7 @@ describe('Login Feature', () => {
         );
         fireEvent.click(screen.getByText('Login'));
         expect(onAuthenticateMock.mock.calls.length).toBe(1);
-        expect(screen.getByText('All field is required')).toBeTruthy();
+        expect(screen.getByText('All field is required')).toBeInTheDocument();
     });
 });
 

@@ -18,15 +18,15 @@ it('Output Counter changes the text after button increment click', () => {
         <Counter />,
     );
     fireEvent.click(screen.getByText('Plus'));
-    expect(screen.getByText(/1/i)).toBeTruthy();
+    expect(screen.getByText(/1/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Plus'));
-    expect(screen.getByText(/2/i)).toBeTruthy();
+    expect(screen.getByText(/2/i)).toBeInTheDocument();
 });
 it('Output Counter changes the text after button decrement click', () => {
     render(
         <Counter />,
     );
     fireEvent.click(screen.getByText('Minus'));
-    expect(screen.getByText(/-1/i)).toBeTruthy();
+    expect(screen.getByText(/-1/i)).toBeInTheDocument();
 });
