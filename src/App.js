@@ -1,12 +1,13 @@
 import './App.css';
-import LoginScreen from "./features/login/LoginScreen";
-import {LoginRepository} from "./features/login/LoginRepository";
-import {LoginBloc} from "./features/login/LoginBloc";
+import {BrowserRouter} from "react-router-dom";
+import AppRouters from "./routes/Routers";
 
 function App() {
-  return (
-    <LoginScreen bloc={()=>LoginBloc(LoginRepository)}/>
-  );
+    return (
+        <BrowserRouter>
+            <AppRouters/>
+        </BrowserRouter>
+    );
 }
 
 export default App;

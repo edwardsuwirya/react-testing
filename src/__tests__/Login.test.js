@@ -2,8 +2,9 @@ import React from 'react';
 import {cleanup, fireEvent, render,screen} from '@testing-library/react';
 import LoginScreen from "../features/login/LoginScreen";
 
-afterEach(cleanup);
+
 describe('Login Feature', () => {
+    afterEach(cleanup);
     it('Should Login successfully', () => {
         const bloc = jest.fn();
         const onAuthenticateMock = jest.fn();

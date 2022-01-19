@@ -1,45 +1,56 @@
 import {cleanup} from "@testing-library/react";
 import {LoginBloc} from "../features/login/LoginBloc";
-import {renderHook, act} from '@testing-library/react-hooks'
-
-afterEach(cleanup);
 
 describe('Login Bloc', () => {
     let repoMock = jest.fn();
+    let userAuthenticationMock = jest.fn();
 
+    let navigationMock = jest.fn();
+    let navigateToMock = jest.fn();
+
+    let useLoginMock = jest.fn();
+
+    let useLoginEmptyMock = jest.fn();
+    let handleErrorChange = jest.fn();
     beforeEach(() => {
+        userAuthenticationMock.mockResolvedValue(true);
         repoMock.mockReturnValue(
             {
-                userAuthentication: jest.fn()
+                userAuthentication: userAuthenticationMock
             }
-        )
-    })
+        );
+        navigationMock.mockReturnValue({
+            navigateTo: navigateToMock
+        });
 
-    it('Should Authenticate success', () => {
-        const {result} = renderHook(() => LoginBloc(repoMock));
-        act(() => {
-            result.current.onAuthenticate('dummyUser', 'dummyPassword')
-        })
-        expect(result.current.error).toBe("");
+        useLoginMock.mockReturnValue({
+            userName: 'dummyUser',
+            handleUserNameChange: jest.fn(),
+            password: 'dummyPassword',
+            handlePasswordChange: jest.fn(),
+            error: '',
+            handleErrorChange: jest.fn()
+        });
+        useLoginEmptyMock.mockReturnValue({
+            userName: '',
+            handleUserNameChange: jest.fn(),
+            password: '',
+            handlePasswordChange: jest.fn(),
+            error: '',
+            handleErrorChange: handleErrorChange
+        });
+    });
+    afterEach(cleanup);
+
+    it('Should Authenticate success', async () => {
+        await LoginBloc(repoMock, navigationMock, useLoginMock).onAuthenticate();
+        expect(userAuthenticationMock.mock.calls.length).toBe(1);
+        expect(userAuthenticationMock).toHaveBeenCalledWith('dummyUser', 'dummyPassword')
+        await expect(userAuthenticationMock()).resolves.toEqual(true)
+        expect(navigateToMock.mock.calls.length).toBe(1);
     });
     it('Should Authenticate failed when required field is empty', () => {
-        const {result} = renderHook(() => LoginBloc(repoMock));
-        act(() => {
-            result.current.onAuthenticate('', '')
-        })
-
-        expect(result.current.error).not.toBe("");
-    });
-
-    it('Should change state user name', () => {
-        const event = {
-            target: {value: 'dummyUser'}
-        };
-        const {result} = renderHook(() => LoginBloc(repoMock));
-        act(() => {
-            result.current.handleUserNameChange(event)
-        })
-
-        expect(result.current.userName).toBe("dummyUser");
+        LoginBloc(repoMock, navigationMock, useLoginEmptyMock).onAuthenticate()
+        expect(handleErrorChange.mock.calls.length).toBe(1);
     });
 })

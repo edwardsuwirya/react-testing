@@ -1,28 +1,25 @@
-import {useState} from 'react';
-
-export const LoginBloc = (repo) => {
-    const [userName, setUserName] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+export const LoginBloc = (repo, navigation, useLogin) => {
     const {userAuthentication} = repo();
+    const {navigateTo} = navigation();
+    const {
+        userName,
+        handleUserNameChange,
+        password,
+        handlePasswordChange,
+        error,
+        handleErrorChange
+    } = useLogin()
 
-    const onAuthenticate = async (userName, password) => {
+    const onAuthenticate = async () => {
         if (!userName || !password) {
-            setError("All field is required");
-        }else{
-            const result = await userAuthentication(userName, password);
-            console.log(result);
+            handleErrorChange("All field is required");
+        } else {
+            const resp = await userAuthentication(userName, password);
+            if (resp) {
+                navigateTo(`/counter`)
+            }
         }
     }
-
-    const handleUserNameChange = (event) => {
-        setUserName(event.target.value);
-    };
-
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
-
     return {
         userName,
         password,

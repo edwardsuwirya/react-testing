@@ -16,7 +16,7 @@ const LoginScreen = ({bloc}) => {
             <input type="text" value={userName} onChange={handleUserNameChange}/><br/>
             Password<br/>
             <input type="password" value={password} onChange={handlePasswordChange}/><br/>
-            <input type="button" value="Login" onClick={() => onAuthenticate(userName, password)}/>
+            <input type="button" value="Login" onClick={() => onAuthenticate()}/>
             <span>{error}</span>
         </div>
     );
