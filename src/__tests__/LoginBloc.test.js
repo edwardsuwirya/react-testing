@@ -13,29 +13,15 @@ describe('Login Bloc', () => {
     let useLoginEmptyMock = jest.fn();
     let handleErrorChange = jest.fn();
     beforeEach(() => {
-        userAuthenticationMock.mockResolvedValue(true);
-        repoMock.mockReturnValue(
-            {
-                userAuthentication: userAuthenticationMock
-            }
-        );
         navigationMock.mockReturnValue({
             navigateTo: navigateToMock
         });
 
         useLoginMock.mockReturnValue({
-            userName: 'dummyUser',
-            handleUserNameChange: jest.fn(),
-            password: 'dummyPassword',
-            handlePasswordChange: jest.fn(),
             error: '',
             handleErrorChange: jest.fn()
         });
         useLoginEmptyMock.mockReturnValue({
-            userName: '',
-            handleUserNameChange: jest.fn(),
-            password: '',
-            handlePasswordChange: jest.fn(),
             error: '',
             handleErrorChange: handleErrorChange
         });
@@ -43,14 +29,27 @@ describe('Login Bloc', () => {
     afterEach(cleanup);
 
     it('Should Authenticate success', async () => {
-        await LoginBloc(repoMock, navigationMock, useLoginMock).onAuthenticate();
+        userAuthenticationMock.mockResolvedValue(true);
+        repoMock.mockReturnValue(
+            {
+                userAuthentication: userAuthenticationMock
+            }
+        );
+        await LoginBloc(repoMock, navigationMock, useLoginMock).onAuthenticate('dummyUser', 'dummyPassword');
         expect(userAuthenticationMock.mock.calls.length).toBe(1);
         expect(userAuthenticationMock).toHaveBeenCalledWith('dummyUser', 'dummyPassword')
         await expect(userAuthenticationMock()).resolves.toEqual(true)
         expect(navigateToMock.mock.calls.length).toBe(1);
     });
-    it('Should Authenticate failed when required field is empty', () => {
-        LoginBloc(repoMock, navigationMock, useLoginEmptyMock).onAuthenticate()
+    it('Should Authenticate failed when required field is empty', async () => {
+        userAuthenticationMock.mockResolvedValue(false);
+        repoMock.mockReturnValue(
+            {
+                userAuthentication: userAuthenticationMock
+            }
+        );
+        await LoginBloc(repoMock, navigationMock, useLoginEmptyMock).onAuthenticate('', '')
+        await expect(userAuthenticationMock()).resolves.toEqual(false)
         expect(handleErrorChange.mock.calls.length).toBe(1);
     });
 })
