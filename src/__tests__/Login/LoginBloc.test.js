@@ -1,5 +1,5 @@
 import {cleanup} from "@testing-library/react";
-import {LoginBloc} from "../features/login/LoginBloc";
+import {LoginBloc} from "../../features/login/LoginBloc";
 
 describe('Login Bloc', () => {
     let repoMock = jest.fn();

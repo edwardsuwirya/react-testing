@@ -6,6 +6,10 @@ import {LoginRepository} from "../features/login/LoginRepository";
 import NotFound from "../features/notfound/NotFound";
 import {RouteNavigation} from "./RouteNavigation";
 import UseLogin from "../features/login/LoginState";
+import PostingListScreen from "../features/posting/PostingListScreen";
+import {PostingListBloc} from "../features/posting/PostingListBloc";
+import {PostingListRepository} from "../features/posting/PostingListRepository";
+import UsePostingList from "../features/posting/PostingListState";
 
 const AppRouters = () => {
     return (
@@ -13,6 +17,7 @@ const AppRouters = () => {
             <Route path="/"
                    element={<LoginScreen bloc={() => LoginBloc(LoginRepository, RouteNavigation, UseLogin)}/>}/>
             <Route path="/counter" element={<Counter/>}/>
+            <Route path="/posting-list" element={<PostingListScreen bloc={() => PostingListBloc(PostingListRepository,UsePostingList)}/>}/>
             <Route path="*" element={<NotFound/>}/>
         </Routes>
     )

@@ -1,6 +1,6 @@
 import React from "react";
 import {act, renderHook} from "@testing-library/react-hooks";
-import UseLogin from "../features/login/LoginState";
+import UseLogin from "../../features/login/LoginState";
 
 describe('Login State', () => {
     it('Should update state error', () => {

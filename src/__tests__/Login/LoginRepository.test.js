@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {LoginRepository} from "../features/login/LoginRepository";
+import {LoginRepository} from "../../features/login/LoginRepository";
 
 describe('Login Repository', () => {
     jest.mock("axios");

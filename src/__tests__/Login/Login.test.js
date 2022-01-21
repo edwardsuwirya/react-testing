@@ -1,6 +1,6 @@
 import React from 'react';
-import {act, cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react';
-import LoginScreen from "../features/login/LoginScreen";
+import {cleanup, fireEvent, render, screen, waitFor} from '@testing-library/react';
+import LoginScreen from "../../features/login/LoginScreen";
 
 
 describe('Login Feature', () => {
