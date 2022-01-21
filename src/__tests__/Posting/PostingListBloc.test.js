@@ -1,4 +1,3 @@
-import {cleanup} from "@testing-library/react";
 import {PostingListBloc} from "../../features/posting/PostingListBloc";
 
 describe('Posting List Bloc', () => {
@@ -13,7 +12,6 @@ describe('Posting List Bloc', () => {
             setPostList: setPostListMock
         });
     });
-    afterEach(cleanup);
 
     it('Should get post list success', async () => {
         getListMock.mockResolvedValue(["dummy"]);

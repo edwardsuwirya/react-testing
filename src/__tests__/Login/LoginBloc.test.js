@@ -1,4 +1,3 @@
-import {cleanup} from "@testing-library/react";
 import {LoginBloc} from "../../features/login/LoginBloc";
 
 describe('Login Bloc', () => {
@@ -26,7 +25,6 @@ describe('Login Bloc', () => {
             handleErrorChange: handleErrorChange
         });
     });
-    afterEach(cleanup);
 
     it('Should Authenticate success', async () => {
         userAuthenticationMock.mockResolvedValue(true);
